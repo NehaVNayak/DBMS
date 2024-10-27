@@ -1,0 +1,1333 @@
+Neha Nayak      2SD22CS129
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Date: 12/9/24           Time:2:30 - 4:30
+
+=======================================================================================================================================================================
+TERM-WORK 1
+=======================================================================================================================================================================
+w1: Create employee table
+
+create table employee (
+	empno integer not null
+	constraint EMPLOYEE_PK_VIOLATION 
+	primary key,
+	empname char(20) not null,
+	sex char(1) not null
+	constraint EMPLOYEE_SEX_VIOLATION
+	check (sex in ('m','f')),
+	phone integer null,
+	dob date default '15-apr-68' not null
+);
+sql> Table created.
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w2: create project table
+
+create table project (
+	projectNo integer not null,
+	projectName char(20) not null,
+	chiefArtitect char(20) default 'upk' not null,
+	constraint PROJECT_PK_VIOLATION
+	primary key(projectNo)
+);
+sql> Table created.
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w3: create assigned_to table
+
+create table assigned_to (
+	empno integer not null,
+	projectNo integer not null,
+	constraint ASSIGNED_TO_PK_VIOLATION
+	foreign key(empno)
+	references employee,
+	constraint ASSIGNED_TO_FK_PRJ_VIOLATION
+	foreign key(projectNo)
+	references project
+);
+
+sql> Table created.
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w4 : To list all tables in my workspace
+
+select * from tab
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w5: Describe the structure of employee table
+
+query>
+describe employee
+
+sql>
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(38)
+ EMPNAME                                   NOT NULL CHAR(20)
+ SEX                                       NOT NULL CHAR(1)
+ PHONE                                              NUMBER(38)
+ DOB                                       NOT NULL DATE
+_______________________________________________________________________________________________________________________________________________________________________
+w6: Describe the structure of project table
+
+query>
+describe project
+
+sql>
+Name                                      Null?    Type
+----------------------------------------- -------- ----------------------------
+PROJECTNO                                 NOT NULL NUMBER(38)
+PROJECTNAME                               NOT NULL CHAR(20)
+CHIEFARTITECT                             NOT NULL CHAR(20)
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w7: Describe the structure of describe assigned_to table
+
+query>
+describe assigned_to
+
+sql>
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(38)
+ PROJECTNO                                 NOT NULL NUMBER(38)
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w8: Insert values in employee table 
+
+query>
+insert into employee values(1, 'Jake Taylor', 'm', 8045634567, '12-jan-89' );
+
+sql> 1 row created.
+
+w8: Insert values in employee table 
+
+query>
+insert into employee (empno, empname, sex, phone, dob) values(2, 'Selene Arias', 'f', 8056434667, '07-aug-98' );
+
+sql> 1 row created.
+
+w8: Insert values in employee table 
+
+query>
+insert into employee values(3, 'Zaid Carrillo', 'm', 4567389744, '10-feb-90' );
+
+sql> 1 row created.
+
+w8: Insert values in employee table 
+
+query>
+insert into employee values(4, 'Emmy McBride', 'f', 4565834067, '18-mar-67' );
+
+sql> 1 row created.
+
+w8: Insert values in employee table 
+
+query>
+insert into employee values (&Employee_ID, &EmployeeName, &Emp_Sex, &Emp_Phone, &Emp_DOB);
+
+sql> 
+Enter value for employee_id: 5
+Enter value for employeename: 'Nicolas Copurnicus'
+Enter value for emp_sex: 'm'
+Enter value for emp_phone: 6767894567
+Enter value for emp_dob: '12-july-90'
+old   1: insert into employee values (&Employee_ID, &EmployeeName, &Emp_Sex, &Emp_Phone, &Emp_DOB)
+new   1: insert into employee values (5, 'Nicolas Copurnicus', 'm', 6767894567, '12-july-90')
+
+1 row created.
+
+w8: Insert values in employee table 
+
+query>
+insert into employee values(6, 'Neha Nayak', 'f', 8569317522, '9-apr-04' );
+
+sql> 1 row created.
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w9: Insert values in project table 
+
+query>
+insert into project values(1, 'DBMS Project', 'UPK' );
+
+sql> 1 row created.
+
+w9: Insert values in project table 
+
+query>
+insert into project values(2, 'Web Project', 'Pratap' );
+
+sql> 1 row created.
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w10: Insert values in assigned_to table 
+
+query>
+insert into assigned_to values(1, 1);
+
+sql> 1 row created.
+
+w10: Insert values in assigned_to table 
+
+query>
+insert into assigned_to values(2, 1);
+
+sql> 1 row created.
+
+w10: Insert values in assigned_to table 
+
+query>
+insert into assigned_to values(3, 2);
+
+sql> 1 row created.
+
+w10: Insert values in assigned_to table 
+
+query>
+insert into assigned_to values(4, 2);
+
+sql> 1 row created.
+
+query>
+insert into assigned_to values(5, 3);
+
+sql> 1 row created.
+
+query>
+insert into assigned_to values(1, 3);
+
+sql> 1 row created.
+
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w11: select all contents from employee
+
+query>
+select * from employee;
+
+sql>
+
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         1 Jake Taylor          m 8045634567 12-JAN-89
+         2 Selene Arias         f 8056434667 07-AUG-98
+         3 Zaid Carrillo        m 4567389744 10-FEB-90
+         4 Emmy McBride         f 4565834067 18-MAR-67
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+w9: select all contents from project
+
+query>
+select * from project;
+
+sql>
+ PROJECTNO PROJECTNAME          CHIEFARTITECT
+---------- -------------------- --------------------
+         1 DBMS Project         UPK
+         2 Web Project          Pratap
+    
+_______________________________________________________________________________________________________________________________________________________________________
+
+w9: select all contents from assigned_to
+
+query>
+select * from assigned_to;
+
+sql>
+
+     EMPNO  PROJECTNO
+---------- ----------
+         1          1
+         2          1
+         3          2
+         4          2
+
+______________________________________________________________________________________________________________________________________________________________________
+
+w10: Insert duplicates to employee (Entity Integrity Checking) 
+
+query>
+insert into employee values(1, 'Jake Taylor', 'm', 8045634567, '12-jan-89' );
+
+sql>
+insert into employee values(1, 'Jake Taylor', 'm', 8045634567, '12-jan-89' )
+*
+ERROR at line 1:
+ORA-00001: unique constraint (22CS129.EMPLOYEE_PK_VIOLATION) violated
+
+______________________________________________________________________________________________________________________________________________________________________
+
+w10: Referential integrity checking
+
+query>
+insert into  assigned_to values(5,9);
+
+sql>
+insert into  assigned_to values(5,9)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (22CS129.ASSIGNED_TO_FK_PRJ_VIOLATION) violated
+- parent key not found
+_______________________________________________________________________________________________________________________________________________________________________
+
+w10: Row Integrity Checking 
+
+query>
+insert into employee values(6, 'Jake Taylor', 'a', 8045634567, '12-jan-89' );
+
+sql>
+insert into employee values(6, 'Jake Taylor', 'a', 8045634567, '12-jan-89' )
+*
+ERROR at line 1:
+ORA-02290: check constraint (22CS129.EMPLOYEE_SEX_VIOLATION) violated
+
+=======================================================================================================================================================================
+TERM-WORK 2
+=======================================================================================================================================================================
+w10: Insert duplicates to employee (Entity Integrity checking)
+
+query>
+select empno from assigned_to where projectNo = 1;
+
+sql>
+     EMPNO
+----------
+         1
+         2
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+Date: 12/9/24           Time:2:30 - 4:30
+
+=======================================================================================================================================================================
+t2 (b): Write SQL statement to get details of the employees working on ProjectNo = 1
+
+query>
+select e. * from employee e, assigned_to at
+where e.empno = at.empno and projectNo = 1;
+sql>
+
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         1 Jake Taylor          m 8045634567 12-JAN-89
+         2 Selene Arias         f 8056434667 07-AUG-98
+_______________________________________________________________________________________________________________________________________________________________________
+
+t2 (c): Write SQL statement to get details of the employees working on DBMS Project
+
+query>
+select e. * from employee e, project p, assigned_to at
+where at.empno = e.empno
+and p.projectNo = at.projectNo
+and p.projectName = 'DBMS Project';
+
+sql>
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         1 Jake Taylor          m 8045634567 12-JAN-89
+         2 Selene Arias         f 8056434667 07-AUG-98
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+t2 (d) Write SQL statement to get details of the employee working on both project 1 and project 2
+
+query>
+select e. *
+from employee e
+JOIN assigned_to a1 ON e.empno=a1.empno
+JOIN assigned_to a2 ON e.empno=a2.empno
+WHERE a1.projectNo=1 AND a2.projectNo=2;
+
+sql>
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         1 Jake Taylor          m 8045634567 12-JAN-89
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+t2 (e) Write SQL statement to get details of the employee working on both project 1 or project 2
+
+query>
+select e. * from employee e, assigned_to at 
+where e.empno = at.empno
+and (projectNo= 1 AND projectNo=2);
+
+sql>
+
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         1 Jake Taylor          m 8045634567 12-JAN-89
+         2 Selene Arias         f 8056434667 07-AUG-98
+         3 Zaid Carrillo        m 4567389744 10-FEB-90
+         4 Emmy McBride         f 4565834067 18-MAR-67
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+Date: 03/10/24           Time:2:30 - 4:30
+
+=======================================================================================================================================================================
+t3 > Modify the schema to store information about fine to be paid by employees.
+
+query>
+CREATE TABLE fine (
+	empno INTEGER NOT NULL,
+	amount INTEGER NOT NULL,
+	fineDate DATE NOT NULL,
+	CONSTRAINT FINE_EMP_FK FOREIGN KEY(empno)
+	 REFERENCES employee
+);
+
+sql>
+Table created.
+
+
+query>
+
+insert into fine values(1, 200, '20-feb-20');
+insert into fine values(2, 50, '9-mar-19');
+insert into fine values(3, 80, '8-jan-18');
+insert into fine values(4, 100, '26-apr-20');
+insert into fine values(1, 50, '30-aug-21');
+insert into fine values(2, 80, '1-dec-19');
+insert into fine values(3, 250, '18-feb-21');
+
+
+sql>
+     EMPNO     AMOUNT FINEDATE
+---------- ---------- ---------
+         1        200 20-FEB-20
+         2         50 09-MAR-19
+         3         80 08-JAN-18
+         4        100 26-APR-20
+         1         50 30-AUG-21
+         2         80 01-DEC-19
+         3        250 18-FEB-21
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+t4> Modify the schema to store details of Dependent.
+
+query>
+CREATE TABLE dependent (
+	empno INTEGER NOT NULL,
+	dname VARCHAR(50) NOT NULL,
+	dRelation CHAR(1) NOT NULL,
+	CONSTRAINT DEPENDENT_EMP_FK FOREIGN KEY(empno)
+	REFERENCES employee(empno),
+	CONSTRAINT DEPENDENT_RELATION_CHECK CHECK
+	(dRelation IN ('m','f','o'))
+);
+
+sql>
+Table created.
+_______________________________________________________________________________________________________________________________________________________________________
+
+----------------Creating Dummy Table---------------------
+
+query>
+CREATE TABLE dummy (
+	id INTEGER NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	CONSTRAINT DUMMY_PK_VIOLATION PRIMARY KEY(id)
+);
+
+sql>
+Table created.
+
+query> 
+insert into dummy values(1, 'Neha');
+insert into dummy values(2, 'Pooja');
+insert into dummy values(3, 'Aditya');
+insert into dummy values(4, 'Ambika');
+insert into dummy values(5, 'Smital');
+insert into dummy values(6, 'Punar');
+
+sql>
+        ID NAME
+---------- --------------------------------------------------
+         1 Neha
+         2 Pooja
+         3 Aditya
+         4 Ambika
+         5 Smital
+         6 Punar
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+t5>Study the following
+
+a) deleting the row.
+
+query>
+DELETE from dummy
+WHERE id=4;
+
+sql>
+1 row deleted.
+
+query>
+DELETE from dummy
+WHERE id=5;
+
+sql>
+1 row deleted.
+
+query>
+DELETE from dummy
+WHERE id=6;
+
+sql>
+1 row deleted.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+b) Dropping table
+
+query>
+DROP TABLE dummy;
+
+sql>
+Table dropped.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+c) Updating row
+
+query>
+UPDATE dummy
+SET name='Rosie'
+WHERE id=1;
+
+sql>
+1 row updated.
+
+        ID NAME
+---------- --------------------------------------------------
+         1 Rosie
+         2 Pooja
+         3 Aditya
+         4 Ambika
+         5 Smital
+         6 Punar
+
+
+query>
+UPDATE dummy
+SET id=6
+WHERE name='Rosie';
+
+sql>
+ERROR at line 1:
+ORA-00001: unique constraint (22CS129.DUMMY_PK_VIOLATION) violated
+_______________________________________________________________________________________________________________________________________________________________________
+----------------Creating Foreign Table---------------------
+
+query>
+CREATE TABLE dummy2 (
+	id INTEGER NOT NULL,
+	age INTEGER NOT NULL,
+	CONSTRAINT DUMMY_FK_VIOLATION 
+	FOREIGN KEY(id)
+	REFERENCES dummy 
+);
+
+sql>
+Table created.
+
+query> 
+insert into dummy2 values(1, 19);
+insert into dummy2 values(2, 20);
+insert into dummy2 values(3, 21);
+insert into dummy2 values(4, 22);
+insert into dummy2 values(5, 23);
+insert into dummy2 values(6, 24);
+
+sql>
+        ID        AGE
+---------- ----------
+         1         19
+         2         20
+         3         21
+         4         22
+         5         23
+         6         24
+_______________________________________________________________________________________________________________________________________________________________________
+t6> Study the impact of deleting rows and dropping rowsand dropping table on foreign key(Refential Integrity)
+
+a) deleting the row.
+
+query>
+DELETE from dummy
+WHERE id=4;
+
+sql>
+ERROR at line 1:
+ORA-02292: integrity constraint (22CS129.DUMMY_FK_VIOLATION) violated - child
+record found
+
+query>
+DELETE from dummy2
+WHERE id=5;
+
+sql>
+1 row deleted.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+b) Dropping table
+
+query>
+DROP TABLE dummy;
+
+sql>
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys
+_______________________________________________________________________________________________________________________________________________________________________
+
+t7> Display the name and do of all employees who are on bench
+
+query>
+SELECT empname, dob
+FROM employee
+WHERE empno NOT IN(select empno FROM assigned_to);
+
+sql>
+
+EMPNAME              DOB
+-------------------- ---------
+Neha Nayak           09-APR-04
+_______________________________________________________________________________________________________________________________________________________________________
+
+t8> Display the name of all employees who are working on all the projects.
+
+query>
+SELECT e.empname from employee e
+where not exists (
+select projectno from project
+minus
+select projectno from assigned_to at
+where e.empno = at.empno
+);
+
+sql>
+
+EMPNAME
+--------------------
+Jake Taylor
+
+_______________________________________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________________________________________
+
+Date: 10/10/24           Time:2:30 - 4:30
+
+=======================================================================================================================================================================
+t9 > Display the names of all employees working on almost all projects that employee 2 is working
+
+query>
+select empname from employee e
+where not exists (
+select projectno from assigned_to
+where empno = 2
+minus
+select projectno from assigned_to at
+where e.empno = at.empno
+);
+
+sql>
+
+EMPNAME
+--------------------
+Jake Taylor
+Selene Arias
+Emmy McBride
+_______________________________________________________________________________________________________________________________________________________________________
+
+t10 > Display the details of top 3 senior employees
+
+query>
+select * from 
+(
+	select * from employee
+	ORDER BY dob
+)
+where rownum <=3;
+
+sql>
+
+     EMPNO EMPNAME              S      PHONE DOB
+---------- -------------------- - ---------- ---------
+         4 Emmy McBride         f 4565834067 18-MAR-67
+         1 Jake Taylor          m 8045634567 12-JAN-89
+         3 Zaid Carrillo        m 4567389744 10-FEB-90_______________________________________________________________________________________________________________________________________________________________________
+
+t11 > Find for each employee the penalty incurred.
+
+query>
+select empno,
+SUM(amount) AS total_penalty
+FROM fine
+GROUP BY empno;
+
+sql>
+
+     EMPNO TOTAL_PENALTY
+---------- -------------
+         1           250
+         2           130
+         4           100
+         3           330
+_______________________________________________________________________________________________________________________________________________________________________
+
+t12> Display the no of employees working under each project having count greater than 3
+
+query>
+select projectno, COUNT(empno) as count
+from assigned_to
+GROUP BY projectno
+HAVING COUNT(empno)>=3;
+
+sql>
+
+ PROJECTNO      COUNT
+---------- ----------
+         1          3
+         2          3_______________________________________________________________________________________________________________________________________________________________________
+t13> Study of 
+
+a) ORDER BY Clause
+
+case1 : To display the names and DOBs of all employees, ordered by their names in ascending order
+
+query>
+SELECT empname, dob 
+FROM employee
+ORDER BY empname ASC;
+
+sql>
+
+EMPNAME              DOB
+-------------------- ---------
+Emmy McBride         18-MAR-67
+Jake Taylor          12-JAN-89
+Neha Nayak           09-APR-04
+Nicolas Copurnicus   12-JUL-90
+Selene Arias         07-AUG-98
+Zaid Carrillo        10-FEB-90
+
+6 rows selected.
+
+case 2 : To display the names and DOBs of all employees, ordered by their DOBs in descending order:
+
+query>
+SELECT empname, dob 
+FROM employee
+ORDER BY dob DESC;
+
+sql>
+
+EMPNAME              DOB
+-------------------- ---------
+Neha Nayak           09-APR-04
+Selene Arias         07-AUG-98
+Nicolas Copurnicus   12-JUL-90
+Zaid Carrillo        10-FEB-90
+Jake Taylor          12-JAN-89
+Emmy McBride         18-MAR-67
+
+6 rows selected.
+
+
+b) ALTER Clause
+
+case1 : To add a new column for the employee's email to the employee table
+
+query>
+ALTER TABLE employee
+ADD Salary INTEGER;
+
+UPDATE employee
+SET Salary = 150000
+where empno = 6;
+
+sql>
+Table altered.
+
+case1 :To drop the email column from the employee table:
+
+query>
+ALTER TABLE employee
+DROP COLUMN email;
+
+sql>
+Table altered.
+_______________________________________________________________________________________________________________________________________________________________________
+t14> Study of 
+
+a) MIN: To find the minimum salary among employees
+
+query>
+SELECT MIN(salary) AS min_salary 
+FROM employee;
+
+sql>
+
+MIN_SALARY
+----------
+     30000
+
+b) MAX: To find the maximum salary among employees
+
+query>
+SELECT MAX(salary) AS max_salary 
+FROM employee;
+
+sql>
+
+MAX_SALARY
+----------
+    150000
+
+c) SUM: To calculate the total salary paid to all employees.
+
+query>
+SELECT SUM(salary) AS total_salary 
+FROM employee;
+
+sql>
+
+TOTAL_SALARY
+------------
+      455000
+
+
+d) AVG: To calculate the average salary of employees.
+
+query>
+SELECT AVG(salary) AS average_salary 
+FROM employee;
+
+sql>
+
+AVERAGE_SALARY
+--------------
+    75833.3333
+
+
+e) VARIANCE: To calculate the variance of salaries among employees.
+
+query>
+SELECT VARIANCE(salary) AS salary_variance 
+FROM employee;
+
+sql>
+
+SALARY_VARIANCE
+---------------
+     1864166667
+
+f) STDDEV : To calculate the standard deviation of employee salaries.
+
+query>
+SELECT STDDEV(salary) AS salary_stddev 
+FROM employee;
+
+sql>
+
+SALARY_STDDEV
+-------------
+   43175.9964
+
+_______________________________________________________________________________________________________________________________________________________________________
+t15> Study of 
+
+a) BETWEEN: To find employees with salaries between 30,000 and 60,000.
+
+query>
+SELECT empname, salary 
+FROM employee 
+WHERE salary BETWEEN 30000 AND 60000;
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Jake Taylor               50000
+Zaid Carrillo             30000
+Nicolas Copurnicus        55000
+
+
+b) LIKE: To find employees whose names start with 'A'.
+
+query>
+SELECT empname
+FROM employee 
+WHERE empname LIKE 'N%';
+
+sql>
+
+EMPNAME
+--------------------
+Neha Nayak
+Nicolas Copurnicus
+
+c) ANY: To find employees who earn more than all employees.
+
+query>
+SELECT empname, salary 
+FROM employee 
+WHERE salary > ANY (SELECT salary FROM employee where empno = 1);
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Nicolas Copurnicus        55000
+Emmy McBride              70000
+Selene Arias             100000
+Neha Nayak               150000
+
+query>
+select empname, salary
+from employee e
+where e.salary <= any (select salary from employee);
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Selene Arias              10000
+Zaid Carrillo             30000
+Jake Taylor               50000
+Nicolas Copurnicus        55000
+Emmy McBride              70000
+Neha Nayak               150000
+
+c) ALL: To find employees who earn more salary less than or equal to 50000.
+
+query>
+SELECT ALL empname, salary
+FROM employee
+WHERE salary <= 50000;
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Jake Taylor               50000
+Zaid Carrillo             30000
+
+
+query>
+select empname, salary
+from employee e
+where e.salary <= ALL (select salary from employee);
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Selene Arias              10000
+
+d) AND: To find employees whose salary greater than 50,000 and less then 10000.
+
+query>
+SELECT empname, salary
+FROM employee 
+WHERE salary >= 50000 AND salary <= 100000;
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Jake Taylor               50000
+Selene Arias             100000
+Emmy McBride              70000
+Nicolas Copurnicus        55000
+
+e) ROWNUM: To find the top 5 highest-paid employees.
+
+query>
+SELECT empname, salary 
+FROM (SELECT empname, salary FROM employee ORDER BY salary DESC)
+WHERE ROWNUM <= 5;
+
+sql>
+
+EMPNAME                  SALARY
+-------------------- ----------
+Neha Nayak               150000
+Selene Arias             100000
+Emmy McBride              70000
+Nicolas Copurnicus        55000
+Jake Taylor               50000
+
+f) COUNT: To count the total number of employees.
+
+query>
+SELECT COUNT(*) AS total_employees 
+FROM employee;
+
+sql>
+
+TOTAL_EMPLOYEES
+---------------
+              6
+
+
+g) IN: Select empname, empno who are on bench
+
+query>
+SELECT empname, dob
+FROM employee
+WHERE empno NOT IN(select empno FROM assigned_to);
+
+sql>
+
+EMPNAME              DOB
+-------------------- ---------
+Neha Nayak           09-APR-04
+
+
+h) EXISTS: To find employees who have been assigned to at least one project.
+
+query>
+SELECT empname
+FROM employee e 
+WHERE EXISTS (SELECT 1 FROM assigned_to at WHERE at.empno = e.empno);
+
+sql>
+
+EMPNAME
+--------------------
+Jake Taylor
+Emmy McBride
+Nicolas Copurnicus
+Selene Arias
+Zaid Carrillo
+
+
+i) DISTINCT: To find employees who have been assigned to at least one project.
+
+query>
+SELECT empno, empname
+from employee e
+where DISTINCT(
+sql>
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+t16> Study of date related functions.
+
+query>
+select to_char(dob, 'SYEAR')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(DOB,'SYEAR')
+-------------------------------------------
+ NINETEEN EIGHTY-NINE
+______________________________________________________________________________________________
+query>
+select to_char(dob, 'YYYY MM DD HH MI SS')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(DOB,'YYYYMM
+-------------------
+1989 01 12 12 00 00
+_______________________________________________________________________________________________
+query>
+select to_char(dob, 'CC YYYY Q MM DAY DY  DD DDD HH MI SS')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(DOB,'CCYYYYQMMDAYDYDDDDDHHMISS')
+-------------------------------------------
+20 1989 1 01 THURSDAY  THU  12 012 12 00 00
+________________________________________________________________________________________________
+query>
+select ADD_MONTHS(dob, 1)
+from employee
+where empno = 1;
+
+sql>
+
+ADD_MONTH
+---------
+12-FEB-89
+_________________________________________________________________________________________________
+query>
+select NEXT_DAY(dob, 'FRIDAY')
+from employee
+where empno = 1;
+
+sql>
+
+NEXT_DAY(
+---------
+13-JAN-89
+_________________________________________________________________________________________________
+query>
+select LAST_DAY(dob)
+from employee
+where empno = 1;
+
+sql>
+LAST_DAY(
+---------
+31-JAN-89
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'SYYYY')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CH
+-----
+ 1989
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'W')
+from employee
+where empno = 1;
+
+sql>
+
+T
+-
+2
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'Y')
+from employee
+where empno = 1;
+
+sql>
+
+T
+-
+9
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'YYY')
+from employee
+where empno = 1;
+
+sql>
+
+TO
+---
+989
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'YYY')
+from employee
+where empno = 1;
+
+sql>
+
+TO
+---
+989
+
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'DAY')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(D
+---------
+THURSDAY
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'MONTH')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(D
+---------
+JANUARY
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'YYYYSP')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CHAR(DOB,'YYYYSP')
+------------------------------------------
+ONE THOUSAND NINE HUNDRED EIGHTY-NINE
+_________________________________________________________________________________________________
+query>
+select to_char(dob, 'Y,YYY')
+from employee
+where empno = 1;
+
+sql>
+
+TO_CH
+-----
+1,989
+_______________________________________________________________________________________________________________________________________________________________________
+
+t17> Study of views.
+
+query>
+CREATE view employee1 as
+SELECt empname, dob, salary
+from employee
+where dob >= '1-JAN-68'
+with CHECK OPTION;
+
+sql>
+View created.
+_______________________________________________________________
+query>
+SELECT * from employee1;
+
+sql>
+
+EMPNAME              DOB           SALARY
+-------------------- --------- ----------
+Neha Nayak           09-APR-04     150000
+Jake Taylor          12-JAN-89      50000
+Selene Arias         07-AUG-98     100000
+Zaid Carrillo        10-FEB-90      30000
+Nicolas Copurnicus   12-JUL-90      55000
+_______________________________________________________________
+
+query>
+insert into employee1 values('upk', '1-JAN-1950',50000);
+
+sql>
+
+ORA-01400: cannot insert NULL into ("22CS129"."EMPLOYEE"."EMPNO")
+_______________________________________________________________
+
+query>
+CREATE view employee2 as
+SELECT empno, empname, sex, salary
+from employee
+where salary > 50000
+with check option;
+
+sql>
+View created.
+_______________________________________________________________
+
+query>
+SELECT * from employee2;
+
+sql>
+
+     EMPNO EMPNAME              S     SALARY
+---------- -------------------- - ----------
+         6 Neha Nayak           f     150000
+         2 Selene Arias         f     100000
+         4 Emmy McBride         f      70000
+         5 Nicolas Copurnicus   m      55000
+_______________________________________________________________
+query>
+update employee2 
+set salary = 10000
+where empno = 2;
+
+sql>
+
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation
+_______________________________________________________________
+query>
+drop view employee1;
+
+sql>
+
+View dropped.
+_______________________________________________________________
+query>
+CREATE view employee3 as
+SELECT empno, empname, sex, salary
+from employee
+where salary > 50000;
+
+sql>
+View created.
+_______________________________________________________________
+query>
+update employee3 
+set salary = 10000
+where empno = 2;
+
+sql>
+1 row updated.
+_______________________________________________________________
+query>
+SELECT * from employee3;
+
+sql>
+
+     EMPNO EMPNAME              S     SALARY
+---------- -------------------- - ----------
+         6 Neha Nayak           f     150000
+         4 Emmy McBride         f      70000
+         5 Nicolas Copurnicus   m      55000
+
+___________________________________________________________________________________________________________________________________________________________________________
+
+t18> Study of copying table.
+
+a) Copying of employee table.
+
+query>
+CREATE TABLE employee_copy AS
+select * from employee;
+
+sql>
+Table EMPLOYEE_COPY created.
+_______________________________________________________________
+
+b) Copying of project table.
+
+query>
+CREATE TABLE project_copy AS
+select * from project;
+
+sql>
+Table PROJECT_COPY created.
+_______________________________________________________________
+c) Copying of assigned_to table.
+
+query>
+CREATE TABLE assigned_to_copy AS 
+SELECT * FROM assigned_to;
+
+sql>
+Table ASSIGNED_TO_COPY created.
+
+_______________________________________________________________
+
+___________________________________________________________________________________________________________________________________________________________________________
